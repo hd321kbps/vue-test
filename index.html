@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>VueJS</title>
+</head>
+<body>
+	<div id="app">
+		<p>{{ sayHello() }}</p>
+		<p>Привет, {{ name }}</p>
+		<p>Вывод теста из поля ниже: {{ message }}</p>
+		<input type="text" v-model="message">
+
+		<div class="code">
+			<pre>{{ $data | json }}</pre>
+		</div>
+
+		<div class="count">
+			<p>Счетчик: {{ counter }}</p>
+			<button v-show="flag" @click="plus(1)" @mouseover="color('green', $event)">+1</button>
+			<button @click="minus(1)" @mouseover="color('red', $event)">-1</button>
+		</div>
+
+		<div class="years">
+			<ul>
+				<li v-for="(people, index) in archive">{{index+1}}: {{ people.name }} - {{ people.year}}</li>
+				<li v-for="(people_two, key, index) of archive_two">{{key}}: {{ people_two }} - {{index+1}}</li>
+			</ul>
+		</div>
+
+		<div class="textarea">
+			<p>{{ count }} / 50</p>
+			<textarea v-model="textValue" cols="30" rows="10"></textarea>
+			<button v-if="count_f">Send</button>
+		</div>
+
+		<div class="refs">
+			<p ref="text" class="text">{{ text }}</p>
+			<button @click="changeText">Изменить заголовок</button>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				name: 'Vue!',
+				message: 'Текст',
+				counter: 0,
+				flag: false,
+				textValue: '',
+				text: 'Заголовок',
+				archive: [
+					{name: 'Igor', year: 1990},
+					{name: 'Maks', year: 1991},
+					{name: 'Marks', year: 1995}
+				],
+				archive_two: {
+					name: 'Igor', year: 1990
+				},
+			},
+			computed: {
+				count: function () {
+					return this.textValue.length
+				},
+				count_f: function () {
+					return this.count <= 50
+				}
+			},
+			watch: {
+				textValue: function (value) {
+					console.log(value)
+				}
+			},
+			methods: {
+				sayHello: function() {
+					return 'Hello ' + this.name
+				},
+				plus: function(num){
+					return this.counter += num
+				},
+				minus: function(num){
+					return this.counter -= num
+				},
+				color: function(color, event) {
+					event.target.style.color = color
+				},
+				changeText: function() {
+					this.text = "Новый заголов"
+					this.$refs.text.style.color = 'blue'
+					console.log(this.$refs)
+				}
+			}
+		})
+	</script>
+
+</body>
+</html>

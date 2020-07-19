@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Vue</title>
+</head>
+<style>
+	.large{font-size: 50px;}
+	.border{border: 1px solid red;}
+</style>
+<body>
+	<div id="app">
+		<button :class="setCss" :style="setInlineCss">{{ title }}</button>
+
+		<ul>
+			<li>
+				<input name="fontSize" type="checkbox" v-model="fontSize">
+				<label for="fontSize">Font Size</label>
+			</li>
+			<li>
+				<input name="border" type="checkbox" v-model="border">
+				<label for="border">Border</label>
+			</li>
+			<li>
+				<input name="color" type="text" v-model="color">
+				<label for="color">Color</label>
+			</li>
+			<li>
+				<input name="range" type="range" v-model="range">
+				<label for="range">range</label>
+			</li>
+		</ul>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- Второй метод инициализации vue -->
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				title: 'Заголовок',
+				fontSize: '',
+				border: '',
+				color: '',
+				range: 0
+			},
+			computed: {
+				// Добавление стилей
+				setCss: function () {
+					return {
+						'large': this.fontSize,
+						'border': this.border
+					}
+				},
+				// Инлайновые стили
+				setInlineCss: function () {
+					return {
+						'color': this.color,
+						'margin-left': this.range + '%'
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>

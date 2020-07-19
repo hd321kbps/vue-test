@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>VueJS</title>
+</head>
+<body>
+	<div id="app">
+		<p>{{ title }}</p>
+		<input type="text" v-model="title">
+	</div>
+
+	<div id="app2">
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<!-- Второй метод инициализации vue -->
+	<script>
+		var app = new Vue({
+			data: {
+				title: 'Заголовок'
+			}
+		})
+
+		app.$mount('#app');
+
+		var app2 = new Vue({
+			template: '<p>{{ title2 }}</p>',
+			computed: {
+				title2: function (){
+					return app.title
+				}
+			}
+		})
+
+		app2.$mount('#app2');
+	
+	</script>
+
+</body>
+</html>
